@@ -14,7 +14,7 @@ const NewExpense = (props) => {
     };
 
     onAddExpense(expenseData); //// pass data from CHILD-to-PARENT (from NewExpense to App) !!
-    hideFormHandler();
+    //hideFormHandler();
   };
   /////////////  pass data from CHILD-to-PARENT (from ExpenseForm to NewExpense) !!!!!!!!!
 
