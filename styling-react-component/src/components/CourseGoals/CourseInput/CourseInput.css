@@ -28,6 +28,6 @@
   border-color: red;
 }
 
-.form-control.form-control.invalid label {
+.form-control.invalid label {
   color: red;
 }
