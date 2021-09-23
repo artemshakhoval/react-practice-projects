@@ -1,10 +1,10 @@
 import "./App.css";
-import UserForm from "./components/newUser/userForm";
+import User from "./components/user";
 
 const App = () => {
   return (
     <>
-      <UserForm />
+      <User />
     </>
   );
 };
