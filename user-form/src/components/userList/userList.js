@@ -2,16 +2,14 @@ import React from "react";
 import styles from "./userList.module.css";
 
 const userList = (props) => {
-  const { name, age, onDelete } = props;
+  const { name, age, deleteHandler } = props;
   //console.log(name, age);
 
   return (
-    <div>
-      <p
-        onDelete={onDelete}
-        className={styles.content_data}
-      >{`${name} (${age} years old)`}</p>
-    </div>
+    <p className={styles.content_data}>
+      {/* onDelete={deleteHandler} */}
+      {`${name} (${age} years old)`}
+    </p>
   );
 };
 

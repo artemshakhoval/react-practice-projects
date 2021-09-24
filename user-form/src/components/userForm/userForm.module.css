@@ -1,5 +1,5 @@
 .input {
-  margin: 2rem auto;
+  /* margin: 2rem auto; */
   padding: 1rem;
   width: 90%;
   max-width: 40rem;
@@ -22,16 +22,16 @@
   margin-bottom: 0.5rem;
 }
 
-.input button {
-  background-color: #5E0E83;
+/* .input button {
+  background-color: #5e0e83;
   padding: 0.25rem 0.7rem;
   color: white;
 }
 
-.input input:focus {
+.input button:focus {
   outline: none;
   border-color: #4f005f;
-}
+} */
 
 .input.invalid label {
   color: red;
