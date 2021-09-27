@@ -15,12 +15,12 @@ const MyModal = (props) => {
 
 const Modal = ({ hideModal, tittle, message }) => {
   return (
-    <React.Fragment>
+    <>
       {ReactDOM.createPortal(
         <MyModal hideModal={hideModal} tittle={tittle} message={message} />,
         document.getElementById("modal-root")
       )}
-    </React.Fragment>
+    </>
   );
 };
 
