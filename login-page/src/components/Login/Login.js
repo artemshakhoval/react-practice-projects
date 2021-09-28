@@ -12,10 +12,18 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes("@") && enteredPassword.trim().length > 6
-    );
-  }, [enteredEmail, enteredPassword]);
+    const identifier = setTimeout(() => {
+      console.log("Checking validity");
+      setFormIsValid(
+        enteredEmail.includes("@") && enteredPassword.trim().length > 6
+      );
+    }, 1000);
+
+    return () => {
+      console.log("CLEANUP"); //// CLEANUP function
+      clearTimeout(identifier);
+    };
+  }, [enteredEmail, enteredPassword]); //// side effect works every time when dependecies changed
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
