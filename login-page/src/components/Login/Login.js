@@ -11,6 +11,14 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  // useEffect(() => {       --------------- how it works!!!
+  //   console.log("render");
+
+  //   return () => {
+  //     console.log("CLEAN RENDER");
+  //   };
+  // }, [enteredPassword]);
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       console.log("Checking validity");
@@ -20,7 +28,7 @@ const Login = (props) => {
     }, 1000);
 
     return () => {
-      console.log("CLEANUP"); //// CLEANUP function
+      console.log("CLEANUP"); //// CLEANUP function works before effect function (before log('Chek val'))
       clearTimeout(identifier);
     };
   }, [enteredEmail, enteredPassword]); //// side effect works every time when dependecies changed
