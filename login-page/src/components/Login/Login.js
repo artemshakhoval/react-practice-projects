@@ -1,85 +1,74 @@
-import React, { useEffect, useReducer, useState } from "react";
-
-import Card from "../UI/Card/Card";
-import classes from "./Login.module.css";
-import Button from "../UI/Button/Button";
+import React, { useState, useReducer, useEffect } from "react";
+import Button from "../UI/button/button";
+import Card from "../UI/card/card";
+import classes from "./login.module.css";
 
 const reduceEmail = (state, action) => {
   switch (action.type) {
-    case "USER_INPUT":
+    case "EMAIL_VALUE":
       return { value: action.val, isValid: action.val.includes("@") };
-    case "INPUT_BLUR":
+    case "EMAIL_BLUR":
       return { value: state.value, isValid: state.value.includes("@") };
     default:
       return state;
   }
-  // if (action.type === "USER_INPUT") {
-  //   return { value: action.val, isValid: action.val.includes("@") };
-  // }
-  // if (action.type === "INPUT_BLUR") {
-  //   return { value: state.value, isValid: state.value.includes("@") };
-  // }
-  // return { value: "", isValid: false };
 };
 
-const Login = (props) => {
-  // const [enteredEmail, setEnteredEmail] = useState("");
-  // const [emailIsValid, setEmailIsValid] = useState();
-  const [enteredPassword, setEnteredPassword] = useState("");
-  const [passwordIsValid, setPasswordIsValid] = useState();
-  const [formIsValid, setFormIsValid] = useState(false);
+const reducePassword = (state, action) => {
+  switch (action.type) {
+    case "PASSWORD_VALUE":
+      return { value: action.val, isValid: action.val.trim().length > 4 };
+    case "PASSWORD_BLUR":
+      return { value: state.value, isValid: state.value.trim().length > 4 };
+    default:
+      return state;
+  }
+};
 
+const Login = ({ loginHandler }) => {
+  const [formIsValid, setFormIsValid] = useState();
   const [emailState, dispatchEmail] = useReducer(reduceEmail, {
     value: "",
-    isValid: false,
+    isValid: null,
   });
 
-  // useEffect(() => {       --------------- how it works!!!
-  //   console.log("render");
-  //   return () => {
-  //     console.log("CLEAN RENDER");
-  //   };
-  // }, [enteredPassword]);
+  const [passwordState, dispatchPassword] = useReducer(reducePassword, {
+    value: "",
+    isValid: null,
+  });
 
-  // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     console.log("Checking validity");
-  //     setFormIsValid(
-  //       enteredEmail.includes("@") && enteredPassword.trim().length > 6
-  //     );
-  //   }, 1000);
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      setFormIsValid(emailState.isValid && passwordState.isValid);
+    }, 700);
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [emailState, passwordState]);
 
-  //   return () => {
-  //     console.log("CLEANUP"); //// CLEANUP function works before effect function (before log('Chek val'))
-  //     clearTimeout(identifier);
-  //   };
-  // }, [enteredEmail, enteredPassword]); //// side effect works every time when dependecies changed
+  const emailChangeHandler = (e) => {
+    dispatchEmail({ type: "EMAIL_VALUE", val: e.target.value });
 
-  const emailChangeHandler = (event) => {
-    dispatchEmail({ type: "USER_INPUT", val: event.target.value });
-
-    setFormIsValid(
-      event.target.value.includes("@") && enteredPassword.trim().length > 6
-    );
+    // setFormIsValid(e.target.value.includes("@") && passwordState.isValid);
   };
 
-  const passwordChangeHandler = (event) => {
-    setEnteredPassword(event.target.value);
+  const passwordChangeHandler = (e) => {
+    dispatchPassword({ type: "PASSWORD_VALUE", val: e.target.value });
 
-    setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
+    // setFormIsValid(e.target.value.trim().length > 4 && emailState.isValid);
   };
 
-  const validateEmailHandler = () => {
-    dispatchEmail({ type: "INPUT_BLUR" });
+  const validEmailHandler = () => {
+    dispatchEmail({ type: "EMAIL_BLUR" });
   };
 
-  const validatePasswordHandler = () => {
-    setPasswordIsValid(enteredPassword.trim().length > 6);
+  const validPasswordHandler = () => {
+    dispatchPassword({ type: "PASSWORD_BLUR" });
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    props.onLogin(emailState.value, enteredPassword);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    loginHandler(emailState.value, passwordState.value);
   };
 
   return (
@@ -87,30 +76,30 @@ const Login = (props) => {
       <form onSubmit={submitHandler}>
         <div
           className={`${classes.control} ${
-            emailState.isValid === false ? classes.invalid : ""
+            emailState.isValid === false && classes.invalid
           }`}
         >
-          <label htmlFor="email">E-Mail</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
             value={emailState.value}
             onChange={emailChangeHandler}
-            onBlur={validateEmailHandler}
+            onBlur={validEmailHandler}
           />
         </div>
         <div
           className={`${classes.control} ${
-            passwordIsValid === false ? classes.invalid : ""
+            passwordState.isValid === false && classes.invalid
           }`}
         >
           <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
-            value={enteredPassword}
+            value={passwordState.value}
             onChange={passwordChangeHandler}
-            onBlur={validatePasswordHandler}
+            onBlur={validPasswordHandler}
           />
         </div>
         <div className={classes.actions}>
