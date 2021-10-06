@@ -37,14 +37,19 @@ const Login = ({ loginHandler }) => {
     isValid: null,
   });
 
+  const { isValid: emailIsValid } = emailState; /// aliases asignment on left side with destructuring obj
+  const { isValid: passwordIsValid } = passwordState; /// aliases asignment on left side with destructuring obj
+
   useEffect(() => {
     const identifier = setTimeout(() => {
-      setFormIsValid(emailState.isValid && passwordState.isValid);
-    }, 700);
+      console.log("Checking form validity");
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
     return () => {
+      console.log("Clean Up");
       clearTimeout(identifier);
     };
-  }, [emailState, passwordState]);
+  }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (e) => {
     dispatchEmail({ type: "EMAIL_VALUE", val: e.target.value });
