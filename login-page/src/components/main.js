@@ -27,8 +27,8 @@ const Main = () => {
   return (
     <AuthContext.Provider
       value={{
-        isLogged: isLogged,
-        logoutHandler: logoutHandler,
+        isLoggedIn: isLogged,
+        onLoggedOut: logoutHandler,
       }}
     >
       <Header />
