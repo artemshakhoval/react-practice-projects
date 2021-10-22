@@ -1,29 +1,36 @@
 import React from "react";
+import AuthContext from "../../store/auth-context";
 import classes from "./navigation.module.css";
 
-const Navigation = ({ isLogged, logoutHandler }) => {
+const Navigation = () => {
   return (
-    <nav className={classes.nav}>
-      <ul>
-        {isLogged && (
-          <li>
-            <a href="/">User</a>
-          </li>
-        )}
+    <AuthContext.Consumer>
+      {(ctx) => {
+        return (
+          <nav className={classes.nav}>
+            <ul>
+              {ctx.isLogged && (
+                <li>
+                  <a href="/">User</a>
+                </li>
+              )}
 
-        {isLogged && (
-          <li>
-            <a href="/">Admin</a>
-          </li>
-        )}
+              {ctx.isLogged && (
+                <li>
+                  <a href="/">Admin</a>
+                </li>
+              )}
 
-        {isLogged && (
-          <li>
-            <button onClick={logoutHandler}>Logout</button>
-          </li>
-        )}
-      </ul>
-    </nav>
+              {ctx.isLogged && (
+                <li>
+                  <button onClick={ctx.logoutHandler}>Logout</button>
+                </li>
+              )}
+            </ul>
+          </nav>
+        );
+      }}
+    </AuthContext.Consumer>
   );
 };
 
