@@ -1,12 +1,14 @@
 import React from "react";
 import Header from "./components/layout/header";
-import MealsSummary from "./components/meals/mealsSummary";
+import Meals from "./components/meals/meals";
 
 const App = () => {
   return (
     <>
       <Header />
-      <MealsSummary />
+      <main>
+        <Meals />
+      </main>
     </>
   );
 };
