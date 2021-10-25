@@ -1,18 +1,23 @@
 import React, { useContext } from "react";
-import ModalContext from "../../store/modal-context";
+import CartContext from "../../store/cart-context";
 import CartIcon from "../cart/cartIcon";
 
 import classes from "./headerCartButton.module.css";
 
-const HeaderCartButton = () => {
-  const ctx = useContext(ModalContext);
+const HeaderCartButton = ({ showModalHandler }) => {
+  const ctx = useContext(CartContext);
+
+  // const numberOfItems = ctx.items.length;
+  const numberOfItems = ctx.items.reduce((currNumber, item) => {
+    return currNumber + item.amount;
+  }, 0);
   return (
-    <button className={classes.button} onClick={ctx.showModalHandler}>
+    <button className={classes.button} onClick={showModalHandler}>
       <span className={classes.icon}>
         <CartIcon />
       </span>
       <span>Your Cart</span>
-      <span className={classes.badge}>3</span>
+      <span className={classes.badge}>{numberOfItems}</span>
     </button>
   );
 };
