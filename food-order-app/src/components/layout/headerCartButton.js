@@ -7,10 +7,10 @@ import classes from "./headerCartButton.module.css";
 const HeaderCartButton = ({ showModalHandler }) => {
   const ctx = useContext(CartContext);
 
-  const numberOfItems = ctx.items.length;
-  // const numberOfItems = ctx.items.reduce((currNumber, item) => {
-  //   return currNumber + item.amount;
-  // }, 0);
+  //const numberOfItems = ctx.items.length;
+  const numberOfItems = ctx.items.reduce((currNumber, item) => {
+    return currNumber + item.amount;
+  }, 0);
   return (
     <button className={classes.button} onClick={showModalHandler}>
       <span className={classes.icon}>
