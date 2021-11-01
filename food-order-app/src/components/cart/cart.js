@@ -11,10 +11,12 @@ const Cart = ({ hideModalHandler }) => {
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
 
-  const addCartItemHandler = (item) => {};
+  const addCartItemHandler = (item) => {
+    cartCtx.addItem({ ...item, amount: 1 });
+  };
 
   const removeCartItemHandler = (id) => {
-    cartCtx.items.filter((item) => item !== id);
+    cartCtx.removeItem(id);
   };
 
   return (
