@@ -4,8 +4,8 @@ import classes from "./Counter.module.css";
 
 const Counter = () => {
   const counter = useSelector((state) => state.counter);
-  const dispatch = useDispatch();
   const show = useSelector((state) => state.showCounter);
+  const dispatch = useDispatch();
 
   const incrementCounterHandler = () => {
     dispatch({ type: "INCREMENT" });
