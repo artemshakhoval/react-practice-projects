@@ -1,12 +1,13 @@
-import { createStore } from "redux";
-import { createSlice } from "@reduxjs/toolkit";
+// import { createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const initState = {
   counter: 0,
   showCounter: true,
 };
 
-createSlice({
+//// TOOLKIT //////
+const counterSlice = createSlice({
   name: "counter",
   initialState: initState,
   reducers: {
@@ -17,7 +18,7 @@ createSlice({
       state.counter--;
     },
     increase(state, action) {
-      state.counter + action.payload;
+      state.counter = state.counter + action.payload;
     },
     toggle(state) {
       state.showCounter = !state.showCounter;
@@ -25,37 +26,45 @@ createSlice({
   },
 });
 
-const counterReducer = (state = initState, action) => {
-  if (action.type === "INCREMENT") {
-    return {
-      counter: state.counter + 1,
-      showCounter: state.showCounter,
-    };
-  }
+/// REDUX /////////
+// const counterReducer = (state = initState, action) => {
+//   if (action.type === "INCREMENT") {
+//     return {
+//       counter: state.counter + 1,
+//       showCounter: state.showCounter,
+//     };
+//   }
 
-  if (action.type === "INCREASE") {
-    return {
-      counter: state.counter + action.payload,
-      showCounter: state.showCounter,
-    };
-  }
+//   if (action.type === "INCREASE") {
+//     return {
+//       counter: state.counter + action.payload,
+//       showCounter: state.showCounter,
+//     };
+//   }
 
-  if (action.type === "DECREMENT") {
-    return {
-      counter: state.counter - 1,
-      showCounter: state.showCounter,
-    };
-  }
+//   if (action.type === "DECREMENT") {
+//     return {
+//       counter: state.counter - 1,
+//       showCounter: state.showCounter,
+//     };
+//   }
 
-  if (action.type === "SHOW") {
-    return {
-      showCounter: !state.showCounter,
-      counter: state.counter,
-    };
-  }
-  return state;
-};
+//   if (action.type === "SHOW") {
+//     return {
+//       showCounter: !state.showCounter,
+//       counter: state.counter,
+//     };
+//   }
+//   return state;
+// };
 
-const store = createStore(counterReducer);
+// const store = createStore(counterReducer);
+
+/// TOOLKIT ////
+const store = configureStore({
+  reducer: counterSlice.reducer,
+});
+
+export const counterActions = counterSlice.actions;
 
 export default store;
