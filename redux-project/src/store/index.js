@@ -76,12 +76,6 @@ const authSlice = createSlice({
     logout(state) {
       state.isAuth = false;
     },
-    emailHandler(state, action) {
-      state.emailValue = "";
-    },
-    passwordHandler(state) {
-      state.passwordValue = "";
-    },
   },
 });
 
