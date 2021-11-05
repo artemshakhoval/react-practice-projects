@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const cartInitState = {
+const uiInitState = {
   showCart: false,
 };
 
 const cartSlice = createSlice({
   name: "ui",
-  initialState: cartInitState,
+  initialState: uiInitState,
   reducers: {
     show(state) {
       state.showCart = !state.showCart;
@@ -14,6 +14,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const cartActions = cartSlice.actions;
+export const uiActions = cartSlice.actions;
 
 export default cartSlice.reducer;

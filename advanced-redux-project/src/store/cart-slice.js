@@ -30,11 +30,12 @@ const cartSlice = createSlice({
     removeItems(state, action) {
       const id = action.payload;
       const existingItem = state.items.find((item) => item.id === id);
-      state.quantity--;
-      if (existingItem === 1) {
+      state.totalQuantity--;
+      if (existingItem.quantity === 1) {
         state.items = state.items.filter((item) => item.id !== id); /// if we have only 1 item and want to delete it then we remove this item from our items array
       } else {
         existingItem.quantity--; /// if we have 2 or more items then just decrement quantity of item
+        existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
       }
     },
   },
