@@ -9,15 +9,15 @@ function App() {
   const cartIsVisible = useSelector((state) => state.ui.showCart);
   const cart = useSelector((state) => state.cart);
 
-  // useEffect(() => {
-  //   fetch(
-  //     "https://advanced-redux-fdaf5-default-rtdb.europe-west1.firebasedatabase.app/cart.json",
-  //     {
-  //       method: "POST",
-  //       body: JSON.stringify(cart),
-  //     }
-  //   );
-  // }, [cart]);
+  useEffect(() => {
+    fetch(
+      "https://advanced-redux-9b3b3-default-rtdb.firebaseio.com/cart.json",
+      {
+        method: "POST",
+        body: JSON.stringify(cart),
+      }
+    );
+  }, [cart]);
 
   return (
     <Layout>
