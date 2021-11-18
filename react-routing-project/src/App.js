@@ -1,8 +1,18 @@
+import React from "react";
+import { Route } from "react-router-dom";
+import Products from "./components/products";
+import Welcome from "./components/welcome";
+
 function App() {
   return (
-    <div>
-      <h2>Let's get started!</h2>
-    </div>
+    <>
+      <Route>
+        <Welcome path="/welcome" />
+      </Route>
+      <Route>
+        <Products path="/products" />
+      </Route>
+    </>
   );
 }
 
